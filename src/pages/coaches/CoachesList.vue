@@ -1,6 +1,6 @@
 <template>
   <section>
-    <coach-filter @change="setFilters"></coach-filter>
+    <coach-filter @change-filter="setFilters"></coach-filter>
   </section>
   <section>
     <base-card>
@@ -13,8 +13,8 @@
           v-for="coach in filteredCoaches"
           :key="coach.id"
           :id="coach.id"
-          :firstName="coach.firstName"
-          :lastName="coach.lastName"
+          :first-name="coach.firstName"
+          :last-name="coach.lastName"
           :rate="coach.hourlyRate"
           :areas="coach.areas"
         ></coach-item>
