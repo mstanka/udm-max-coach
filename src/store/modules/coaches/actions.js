@@ -1,6 +1,8 @@
 export default {
   async registerCoach(context, data) {
     const userId = context.rootGetters.userId;
+    const token = context.rootGetters.token;
+
     const coachData = {
       firstName: data.first,
       lastName: data.last,
@@ -10,7 +12,7 @@ export default {
     };
 
     const response = await fetch(
-      `https://udm-max-coach-default-rtdb.europe-west1.firebasedatabase.app/coaches/${userId}.json`,
+      `https://udm-max-coach-default-rtdb.europe-west1.firebasedatabase.app/coaches/${userId}.json?auth=${token}`,
       {
         method: 'PUT',
         body: JSON.stringify(coachData),
@@ -18,7 +20,10 @@ export default {
     );
 
     if (!response.ok) {
-      // error...
+      const error = new Error(
+        responseData.message || 'Failed to fetch requests',
+      );
+      throw error;
     }
 
     // const responseData = await response.json()
